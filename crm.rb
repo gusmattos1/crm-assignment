@@ -144,50 +144,55 @@ class CRM
   end
 
   def display_all_contacts
-  print  Contact.all
-    c = Contact.all
-    puts "\n\n"
-    Contact.all.each do |contact|
-      puts contact.include?("Gustavo")
-end
-
-      # Contact.all.each do |contact|
-      #   puts "\n\nContact ID: #{contact.id}"
-      #   puts "First name: #{contact.first_name}"
-      #   puts "Last name: #{contact.last_name}"
-      #   puts "Email: #{contact.email}"
-      #   puts "Notes: #{contact.notes}\n\n"
-      # end
+      Contact.all.each do |contact|
+        puts "\n\nContact ID: #{contact.id}"
+        puts "First name: #{contact.first_name}"
+        puts "Last name: #{contact.last_name}"
+        puts "Email: #{contact.email}"
+        puts "Notes: #{contact.notes}\n\n"
+      end
   end
 
   def search_by_attribute
 
     puts "Please select which attribute do you wanna to search:"
-    # attribute = gets.chomp
-attribute = gets.chomp
-puts "Please imput #{attribute}"
-value = gets.chomp
     puts "Select 1 to search by first name"
     puts "Select 2 to search by last name"
     puts "Select 3 to search by email"
     puts "Select 4 to search by notes"
     puts "Select 5 to search by id"
-    puts "Select 6 to back to main menu"
+    puts "Select 6 to search in all the fields"
+    puts "Select 7 to back to main menu"
 
 
 
     selection = gets.chomp.to_i
 
     case selection
-
-      when 1 then
-        puts "Please inform the first name"
-        name = gets.chomp
-        result = Contact.find_by("first_name", name)
-        if result == false
-          puts "Contact not found."
-        else
-          puts "we found this contatcs:"
+    when 1 then
+      puts "Please inform the first name"
+      name = gets.chomp
+      result = Contact.find_by("first_name", name)
+      if result == false
+        puts "Contact not found."
+      else
+        puts "we found this contatcs:"
+          result.each do |contact|
+          puts "\n\nContact ID: #{contact.id}"
+          puts "First name: #{contact.first_name}"
+          puts "Last name: #{contact.last_name}"
+          puts "Email: #{contact.email}"
+          puts "Notes: #{contact.notes}\n\n"
+          end
+      end
+    when 6 then
+      puts "Please inform what you are looking for:"
+      value = gets.chomp
+      result = Contact.find_by(value)
+      if result == false
+        puts "Contact not found."
+      else
+        puts "we found this contatcs:"
           result.each do |contact|
           puts "\n\nContact ID: #{contact.id}"
           puts "First name: #{contact.first_name}"
@@ -198,12 +203,8 @@ value = gets.chomp
         end
       end
   end
-
-
-p Contact.all
-puts "================================="
-
 end
+
 Contact.create("Gustavo", "Mattos")
 Contact.create("test", "test")
 Contact.create("lala", "lele")
@@ -218,5 +219,3 @@ Contact.create("Gustavo", "fourth")
 
 a = CRM.new
 a.main_menu
-
-puts "================================="

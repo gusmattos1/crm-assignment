@@ -1,4 +1,4 @@
-class Contact 
+class Contact
 
 @@contacts = []
 @@id = 1
@@ -105,11 +105,11 @@ end
   # but it should allow you to search for a contact using attributes other than id
   # by specifying both the name of the attribute and the value
   # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
-  def self.find_by(attribute, name)
+  def self.find_by(value)
 
     results = []
     @@contacts.each do |contact|
-      if attribute == "first_name" && contact.first_name == name
+      if contact.inspect.include?(value)
         results << contact
       end
     end
