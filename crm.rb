@@ -6,13 +6,16 @@ class CRM
 
   end
 
+
+
   def main_menu
 
-    when true
+    while true
 
       print_main_menu
-      option = gets.chomp
+      option = gets.chomp.to_i
       call_option(option)
+    end
 
 
   end
@@ -38,6 +41,7 @@ class CRM
     when 4 then display_all_contacts
     when 5 then search_by_attribute
     when 6 then exit
+    else puts "select between 1 and 6"
 
     end
 
@@ -61,68 +65,158 @@ class CRM
   def modify_existing_contact
 
     puts "Plese inform the contact \"ID\""
-    contact_id = gets.chomp
-    puts "You have select the contact "
-    Contact.find(contact_id)
-    puts "Please select which attribute do you wanna change:"
-    puts "Select 1 to change the first name"
-    puts "Select 2 to change the last name"
-    puts "Select 3 to change the email"
-    puts "Select 4 to change the notes"
+    contact_id = gets.chomp.to_i
 
-    select = gets.chomp
+    if Contact.find(contact_id) == false
+      puts "Contact not found."
+      modify_existing_contact
 
-    case select
+    else
 
-      when 1 then
-        puts "Please inform the new fisrt name"
-        new_name = gets.chomp
-        contact.first_name = (new_name)
+      puts "You have select the contact "
+      selected = Contact.find(contact_id)
+      puts selected.first_name
+      puts "Please select which attribute do you wanna change:"
+      puts "Select 1 to change the first name"
+      puts "Select 2 to change the last name"
+      puts "Select 3 to change the email"
+      puts "Select 4 to change the notes"
+      puts "Select 5 to go back to main menu"
 
-      when 2 then
-        puts "Please inform the new last name"
-        new_name = gets.chomp
-        contact.last_name = (new_name)
+      selection = gets.chomp.to_i
 
-      when 3 then
-        puts "Please inform the new email"
-        new_name = gets.chomp
-        contact.email = (new_name)
+      case selection
 
-      when 4 then
-        puts "Please inform the new notes"
-        new_name = gets.chomp
-        contact.notes = (new_name)
+        when 1 then
+          puts "Please inform the new fisrt name"
+          new_name = gets.chomp
+          selected.first_name = (new_name)
+
+        when 2 then
+          puts "Please inform the new last name"
+          new_name = gets.chomp
+          selected.last_name = (new_name)
+
+        when 3 then
+          puts "Please inform the new email"
+          new_name = gets.chomp
+          selected.email = (new_name)
+
+        when 4 then
+          puts "Please inform the new notes"
+          new_name = gets.chomp
+          selected.notes = (new_name)
+
+        when 5 then
+          main_menu
       end
     end
-
-
-
-
   end
 
-  def delete_contact(id)
+  def delete_contact
 
     puts "Plese inform the contact \"ID\""
-    contact_id = gets.chomp
-    puts "You have select the contact "
-    Contact.find(contact_id)
-    puts "Do you want to delet this contact?"
-    puts "(1) Yes, delete this contatc"
-    puts "(2) No, keep this contact"
-    selection = gets.chomp
-    case selection
-    when 1 then
-      @@contacts.delete(contact)
+    contact_id = gets.chomp.to_i
+
+    if Contact.find(contact_id) == false
+      puts "Contact not found."
+      delete_contact
+
+    else
+
+      puts "You have select the contact "
+      selected = Contact.find(contact_id)
+      puts selected.first_name
+      puts "Do you want to delet this contact?"
+      puts "(1) Yes, delete this contatc"
+      puts "(2) No, I will select another contact"
+      puts "(3) Back to main menu"
+      selection = gets.chomp.to_i
+        case selection
+        when 1 then
+          Contact.delete(selected)
+        when 2 then
+          delete_contact
+        when 3 then
+          main_menu
+        end
+    end
   end
 
   def display_all_contacts
+  print  Contact.all
+    c = Contact.all
+    puts "\n\n"
+    Contact.all.each do |contact|
+      puts contact.include?("Gustavo")
+end
 
+      # Contact.all.each do |contact|
+      #   puts "\n\nContact ID: #{contact.id}"
+      #   puts "First name: #{contact.first_name}"
+      #   puts "Last name: #{contact.last_name}"
+      #   puts "Email: #{contact.email}"
+      #   puts "Notes: #{contact.notes}\n\n"
+      # end
   end
 
   def search_by_attribute
 
+    puts "Please select which attribute do you wanna to search:"
+    # attribute = gets.chomp
+attribute = gets.chomp
+puts "Please imput #{attribute}"
+value = gets.chomp
+    puts "Select 1 to search by first name"
+    puts "Select 2 to search by last name"
+    puts "Select 3 to search by email"
+    puts "Select 4 to search by notes"
+    puts "Select 5 to search by id"
+    puts "Select 6 to back to main menu"
+
+
+
+    selection = gets.chomp.to_i
+
+    case selection
+
+      when 1 then
+        puts "Please inform the first name"
+        name = gets.chomp
+        result = Contact.find_by("first_name", name)
+        if result == false
+          puts "Contact not found."
+        else
+          puts "we found this contatcs:"
+          result.each do |contact|
+          puts "\n\nContact ID: #{contact.id}"
+          puts "First name: #{contact.first_name}"
+          puts "Last name: #{contact.last_name}"
+          puts "Email: #{contact.email}"
+          puts "Notes: #{contact.notes}\n\n"
+          end
+        end
+      end
   end
 
 
+p Contact.all
+puts "================================="
+
 end
+Contact.create("Gustavo", "Mattos")
+Contact.create("test", "test")
+Contact.create("lala", "lele")
+Contact.create("Gustavo", "second")
+Contact.create("Gustavo", "third")
+Contact.create("Gustavo", "fourth")
+
+
+
+
+
+
+a = CRM.new
+a.main_menu
+
+puts "================================="

@@ -1,8 +1,11 @@
-class Contact
+class Contact 
 
-@@comtacts = []
+@@contacts = []
 @@id = 1
 
+def self.prin t_contacts
+  return @@contatcs
+end
   # This method should initialize the contact's attributes
   def initialize(first_name, last_name, email = "N/A", notes = "N/A")
     @first_name = first_name
@@ -58,10 +61,9 @@ end
   # This method should call the initializer,
   # store the newly created contact, and then return it
   def self.create(first_name, last_name, email = "N/A", notes = "N/A")
-    new_contact = Contact.new(first_name, last_name, email = "N/A", notes = "N/A")
+    new_contact = Contact.new(first_name, last_name, email, notes)
     @@contacts << new_contact
-    return puts "your have successfully create #{new_contact}"
-
+    return puts "your have successfully create the contact\" #{new_contact.first_name} \" ID: #{new_contact.id}"
   end
 
   # This method should return all of the existing contacts
@@ -72,15 +74,19 @@ end
   # This method should accept an id as an argument
   # and return the contact who has that id
   def self.find(contact_id)
-
+    my_contact = nil
     @@contacts.each do |contact|
-      if contact.id = contact_id
-        return contact
-      else
-        puts "Contact not found."
-      end
-    end
+      if contact.id == contact_id
+      my_contact = contact
 
+      end
+
+    end
+    if my_contact == nil
+      return false
+    else
+      return my_contact
+    end
   end
 
   # This method should allow you to specify
@@ -99,7 +105,20 @@ end
   # but it should allow you to search for a contact using attributes other than id
   # by specifying both the name of the attribute and the value
   # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
-  def self.find_by
+  def self.find_by(attribute, name)
+
+    results = []
+    @@contacts.each do |contact|
+      if attribute == "first_name" && contact.first_name == name
+        results << contact
+      end
+    end
+
+      if results.any? == true
+        return results
+      else
+        return false
+      end
 
   end
 
