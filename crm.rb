@@ -154,7 +154,6 @@ class CRM
   end
 
   def search_by_attribute
-
     puts "Please select which attribute do you wanna to search:"
     puts "Select 1 to search by first name"
     puts "Select 2 to search by last name"
@@ -163,32 +162,98 @@ class CRM
     puts "Select 5 to search by id"
     puts "Select 6 to search in all the fields"
     puts "Select 7 to back to main menu"
-
-
-
     selection = gets.chomp.to_i
+      case selection
 
-    case selection
-    when 1 then
-      puts "Please inform the first name"
-      name = gets.chomp
-      result = Contact.find_by("first_name", name)
-      if result == false
-        puts "Contact not found."
-      else
-        puts "we found this contatcs:"
-          result.each do |contact|
-          puts "\n\nContact ID: #{contact.id}"
-          puts "First name: #{contact.first_name}"
-          puts "Last name: #{contact.last_name}"
-          puts "Email: #{contact.email}"
-          puts "Notes: #{contact.notes}\n\n"
-          end
-      end
+      when 1 then
+        puts "Please inform the first name"
+        name = gets.chomp
+        result = Contact.find_by("first_name", name)
+        if result == false
+          puts "Contact not found."
+        else
+          puts "we found this contatcs:"
+            result.each do |contact|
+            puts "\n\nContact ID: #{contact.id}"
+            puts "First name: #{contact.first_name}"
+            puts "Last name: #{contact.last_name}"
+            puts "Email: #{contact.email}"
+            puts "Notes: #{contact.notes}\n\n"
+            end
+        end
+
+      when 2 then
+        puts "Please inform the last name"
+        name = gets.chomp
+        result = Contact.find_by("last_name", name)
+        if result == false
+          puts "Contact not found."
+        else
+          puts "we found this contatcs:"
+            result.each do |contact|
+            puts "\n\nContact ID: #{contact.id}"
+            puts "First name: #{contact.first_name}"
+            puts "Last name: #{contact.last_name}"
+            puts "Email: #{contact.email}"
+            puts "Notes: #{contact.notes}\n\n"
+            end
+        end
+
+      when 3 then
+        puts "Please inform the email"
+        name = gets.chomp
+        result = Contact.find_by("email", name)
+        if result == false
+          puts "Contact not found."
+        else
+          puts "we found this contatcs:"
+            result.each do |contact|
+            puts "\n\nContact ID: #{contact.id}"
+            puts "First name: #{contact.first_name}"
+            puts "Last name: #{contact.last_name}"
+            puts "Email: #{contact.email}"
+            puts "Notes: #{contact.notes}\n\n"
+            end
+        end
+
+      when 4 then
+        puts "Please inform the notes"
+        name = gets.chomp
+        result = Contact.find_by("notes", name)
+        if result == false
+          puts "Contact not found."
+        else
+          puts "we found this contatcs:"
+            result.each do |contact|
+            puts "\n\nContact ID: #{contact.id}"
+            puts "First name: #{contact.first_name}"
+            puts "Last name: #{contact.last_name}"
+            puts "Email: #{contact.email}"
+            puts "Notes: #{contact.notes}\n\n"
+            end
+        end
+
+      when 5 then
+        puts "Please inform the id"
+        name = gets.chomp
+        result = Contact.find_by("id", name)
+        if result == false
+          puts "Contact not found."
+        else
+          puts "we found this contatcs:"
+            result.each do |contact|
+            puts "\n\nContact ID: #{contact.id}"
+            puts "First name: #{contact.first_name}"
+            puts "Last name: #{contact.last_name}"
+            puts "Email: #{contact.email}"
+            puts "Notes: #{contact.notes}\n\n"
+            end
+        end
+
     when 6 then
       puts "Please inform what you are looking for:"
       value = gets.chomp
-      result = Contact.find_by(value)
+      result = Contact.find_any(value)
       if result == false
         puts "Contact not found."
       else
