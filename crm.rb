@@ -289,3 +289,7 @@ Contact.create("Gustavo", "fourth")
 
 a = CRM.new
 a.main_menu
+
+at_exit do
+  ActiveRecord::Base.connection.close
+end
