@@ -55,8 +55,13 @@ class CRM
     puts "Please inform the notes (optinal)"
     notes = gets.chomp
 
-    Contact.create(first_name, last_name, email, notes)
-
+    contact = Contact.create(
+    first_name: first_name,
+    last_name:  last_name,
+    email:      email,
+    note:       notes
+    )
+    p contact
   end
 
   def modify_existing_contact
@@ -275,12 +280,12 @@ class CRM
   end
 end
 
-Contact.create("Gustavo", "Mattos")
-Contact.create("test", "test")
-Contact.create("lala", "lele")
-Contact.create("Gustavo", "second")
-Contact.create("Gustavo", "third")
-Contact.create("Gustavo", "fourth")
+# Contact.create("Gustavo", "Mattos")
+# Contact.create("test", "test")
+# Contact.create("lala", "lele")
+# Contact.create("Gustavo", "second")
+# Contact.create("Gustavo", "third")
+# Contact.create("Gustavo", "fourth")
 
 
 
