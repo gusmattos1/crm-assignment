@@ -48,10 +48,18 @@ class CRM
 
     puts "Please inform the first name"
     first_name = gets.chomp
+      if first_name == nil
+        puts "We need DATA, put somenthing!!!"
+        add_new_contact
+      end
+
     puts "Please inform the last name"
+    last_name == nil
     last_name = gets.chomp
+
     puts "Please inform the email (optinal)"
     email = gets.chomp
+
     puts "Please inform the notes (optinal)"
     notes = gets.chomp
 
@@ -61,7 +69,7 @@ class CRM
     email:      email,
     note:       notes
     )
-    p contact
+    puts "You hae successfully create #{contact.full_name}"
   end
 
   def modify_existing_contact
@@ -69,15 +77,18 @@ class CRM
     puts "Plese inform the contact \"ID\""
     contact_id = gets.chomp.to_i
 
-    if Contact.find(contact_id) == false
+    selected = Contact.find_by_id(contact_id)
+
+    if selected == nil
+
       puts "Contact not found."
       modify_existing_contact
 
     else
 
       puts "You have select the contact "
-      selected = Contact.find(contact_id)
       puts selected.first_name
+
       puts "Please select which attribute do you wanna change:"
       puts "Select 1 to change the first name"
       puts "Select 2 to change the last name"
@@ -92,22 +103,22 @@ class CRM
         when 1 then
           puts "Please inform the new fisrt name"
           new_name = gets.chomp
-          selected.first_name = (new_name)
+          selected.update(first_name: new_name)
 
         when 2 then
           puts "Please inform the new last name"
           new_name = gets.chomp
-          selected.last_name = (new_name)
+          selected.update(last_name: new_name)
 
         when 3 then
           puts "Please inform the new email"
           new_name = gets.chomp
-          selected.email = (new_name)
+          selected.update(email: new_name)
 
         when 4 then
           puts "Please inform the new notes"
           new_name = gets.chomp
-          selected.notes = (new_name)
+          selected.update(note: new_name)
 
         when 5 then
           main_menu
@@ -124,7 +135,7 @@ class CRM
     puts "Plese inform the contact \"ID\""
     contact_id = gets.chomp.to_i
 
-    if Contact.find(contact_id) == false
+    if Contact.find_by_id(contact_id) == nil
       puts "Contact not found."
       delete_contact
 
@@ -137,10 +148,10 @@ class CRM
       puts "(1) Yes, delete this contatc"
       puts "(2) No, I will select another contact"
       puts "(3) Back to main menu"
-      selection = gets.chomp.to_i
-        case selection
+      options = gets.chomp.to_i
+        case options
         when 1 then
-          Contact.delete(selected)
+          selected.delete
         when 2 then
           delete_contact
         when 3 then
@@ -158,7 +169,7 @@ class CRM
         puts "First name: #{contact.first_name}"
         puts "Last name: #{contact.last_name}"
         puts "Email: #{contact.email}"
-        puts "Notes: #{contact.notes}\n\n"
+        puts "Notes: #{contact.note}\n\n"
       end
   end
 
@@ -178,8 +189,8 @@ class CRM
       when 1 then
         puts "Please inform the first name"
         name = gets.chomp
-        result = Contact.find_by("first_name", name)
-        if result == false
+        result = Contact.find_by_first_name(name)
+        if result == nil
           puts "Contact not found."
         else
           puts "we found this contatcs:"
@@ -188,15 +199,15 @@ class CRM
             puts "First name: #{contact.first_name}"
             puts "Last name: #{contact.last_name}"
             puts "Email: #{contact.email}"
-            puts "Notes: #{contact.notes}\n\n"
+            puts "Notes: #{contact.note}\n\n"
             end
         end
 
       when 2 then
         puts "Please inform the last name"
         name = gets.chomp
-        result = Contact.find_by("last_name", name)
-        if result == false
+        result = Contact.find_by_last_name(name)
+        if result == nil
           puts "Contact not found."
         else
           puts "we found this contatcs:"
@@ -205,15 +216,15 @@ class CRM
             puts "First name: #{contact.first_name}"
             puts "Last name: #{contact.last_name}"
             puts "Email: #{contact.email}"
-            puts "Notes: #{contact.notes}\n\n"
+            puts "Notes: #{contact.note}\n\n"
             end
         end
 
       when 3 then
         puts "Please inform the email"
         name = gets.chomp
-        result = Contact.find_by("email", name)
-        if result == false
+        result = Contact.find_by_email(name)
+        if result == nil
           puts "Contact not found."
         else
           puts "we found this contatcs:"
@@ -222,15 +233,15 @@ class CRM
             puts "First name: #{contact.first_name}"
             puts "Last name: #{contact.last_name}"
             puts "Email: #{contact.email}"
-            puts "Notes: #{contact.notes}\n\n"
+            puts "Notes: #{contact.note}\n\n"
             end
         end
 
       when 4 then
         puts "Please inform the notes"
         name = gets.chomp
-        result = Contact.find_by("notes", name)
-        if result == false
+        result = Contact.find_by_note(name)
+        if result == nil
           puts "Contact not found."
         else
           puts "we found this contatcs:"
@@ -239,15 +250,15 @@ class CRM
             puts "First name: #{contact.first_name}"
             puts "Last name: #{contact.last_name}"
             puts "Email: #{contact.email}"
-            puts "Notes: #{contact.notes}\n\n"
+            puts "Notes: #{contact.note}\n\n"
             end
         end
 
       when 5 then
         puts "Please inform the id"
         name = gets.chomp
-        result = Contact.find_by("id", name)
-        if result == false
+        result = Contact.find_by_id(name)
+        if result == nil
           puts "Contact not found."
         else
           puts "we found this contatcs:"
@@ -256,27 +267,24 @@ class CRM
             puts "First name: #{contact.first_name}"
             puts "Last name: #{contact.last_name}"
             puts "Email: #{contact.email}"
-            puts "Notes: #{contact.notes}\n\n"
+            puts "Notes: #{contact.note}\n\n"
             end
         end
 
     when 6 then
       puts "Please inform what you are looking for:"
       value = gets.chomp
-      result = Contact.find_any(value)
-      if result == false
-        puts "Contact not found."
-      else
-        puts "we found this contatcs:"
-          result.each do |contact|
-          puts "\n\nContact ID: #{contact.id}"
-          puts "First name: #{contact.first_name}"
-          puts "Last name: #{contact.last_name}"
-          puts "Email: #{contact.email}"
-          puts "Notes: #{contact.notes}\n\n"
+      result = Contact.all.map { |e| {id: e.id, first_name: e.first_name, last_name: e.last_name, email: e.email, note: e.note}  }
+      result.each do |hash|
+
+          if hash.values.include?(value) == true
+
+            hash.each do |key, value|
+            puts "#{key} #{value}"
+            end
           end
         end
-      end
+    end
   end
 end
 
