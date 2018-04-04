@@ -17,7 +17,7 @@ class CRM
 
   end
 
-  def print_main_menu
+  def print_main_menu # Show all the options to user
 
     puts "Please select one of the options bellow:"
     puts "Press 1 to ADD a contact"
@@ -27,9 +27,9 @@ class CRM
     puts "Press 5 to SEARC a contact by a attribute"
     puts "Press 6 to EXIT"
 
-  end # Show all the options to user
+  end
 
-  def call_option(option)
+  def call_option(option) #call the methods according to user choice
 
     case option
     when 1 then add_new_contact
@@ -42,7 +42,7 @@ class CRM
 
     end
 
-  end #call the methods according to user choice
+  end
 
   def add_new_contact
 
@@ -57,7 +57,7 @@ class CRM
 
     Contact.create(first_name, last_name, email, notes)
 
-  end #menu to add a new contactt
+  end
 
   def modify_existing_contact
 
