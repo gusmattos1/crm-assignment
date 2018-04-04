@@ -3,17 +3,20 @@ class Contact
 @@contacts = []
 @@id = 1
 
-def self.prin t_contacts
+def self.print_contacts
   return @@contatcs
 end
+
   # This method should initialize the contact's attributes
   def initialize(first_name, last_name, email = "N/A", notes = "N/A")
+    #email and notes are optional
     @first_name = first_name
     @last_name = last_name
     @email = email
     @notes = notes
-    @id = @@id
-    @@id += 1
+    @id = @@id #each contact receive a unique id
+    @@id += 1 #generate a new id for the next contact
+
   end
 
 #=================== READERS ==========================
@@ -56,6 +59,8 @@ def notes=(new_notes)
   @notes = new_notes
 end
 
+#there is no writer for ID as is unique to each contact
+
 #=================== METHODS ==========================
 
   # This method should call the initializer,
@@ -78,9 +83,7 @@ end
     @@contacts.each do |contact|
       if contact.id == contact_id
       my_contact = contact
-
       end
-
     end
     if my_contact == nil
       return false
@@ -93,12 +96,8 @@ end
   # 1. which of the contact's attributes you want to update
   # 2. the new value for that attribute
   # and then make the appropriate change to the contact
-  def update(id, attribute, value)
-
-    Contact.find(id)
-    contact.attribute = value
-    return contact
-
+  def update
+#note used
   end
 
   # This method should work similarly to the find method above
@@ -169,17 +168,17 @@ end
 
   # This method should delete all of the contacts
   def self.delete_all
-
+    @@contacts = []
   end
 
   def full_name
-
+    puts "#{self.first_name}, #{self.last_name}"
   end
 
   # This method should delete the contact
   # HINT: Check the Array class docs for built-in methods that might be useful here
-  def delete(contact)
-    @@contacts.delete(contact)
+  def delete
+    @@contacts.delete(self)
   end
 
   # Feel free to add other methods here, if you need them.

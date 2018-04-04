@@ -3,18 +3,15 @@ require_relative 'contact'
 class CRM
 
   def initialize
-
   end
-
-
 
   def main_menu
 
-    while true
+    while true # keep runing until user choose to exit
 
-      print_main_menu
-      option = gets.chomp.to_i
-      call_option(option)
+      print_main_menu #print all the options
+      option = gets.chomp.to_i #get the user choice
+      call_option(option) #apply the user choice
     end
 
 
@@ -30,7 +27,7 @@ class CRM
     puts "Press 5 to SEARC a contact by a attribute"
     puts "Press 6 to EXIT"
 
-  end
+  end # Show all the options to user
 
   def call_option(option)
 
@@ -45,7 +42,7 @@ class CRM
 
     end
 
-  end
+  end #call the methods according to user choice
 
   def add_new_contact
 
@@ -60,7 +57,7 @@ class CRM
 
     Contact.create(first_name, last_name, email, notes)
 
-  end
+  end #menu to add a new contactt
 
   def modify_existing_contact
 
@@ -109,6 +106,10 @@ class CRM
 
         when 5 then
           main_menu
+
+        else
+          puts "Please insert between 1 and 5"
+          modify_existing_contact
       end
     end
   end
@@ -139,6 +140,9 @@ class CRM
           delete_contact
         when 3 then
           main_menu
+        else
+          puts "Please insert a number between 1 and 3"
+          delete_contact
         end
     end
   end
@@ -162,6 +166,7 @@ class CRM
     puts "Select 5 to search by id"
     puts "Select 6 to search in all the fields"
     puts "Select 7 to back to main menu"
+
     selection = gets.chomp.to_i
       case selection
 
